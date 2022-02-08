@@ -1,6 +1,5 @@
 <script>
 import axios from "axios";
-
 export default {
   data: function () {
     return {
@@ -12,6 +11,7 @@ export default {
   },
   methods: {
     indexRecipes: function () {
+      console.log("Sanity check...");
       axios.get("http://localhost:3000/recipes").then((response) => {
         console.log(response.data);
         this.recipes = response.data;
@@ -24,7 +24,6 @@ export default {
 <template>
   <div class="home">
     <h1>All Recipes</h1>
-
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
       <h2>Title: {{ recipe.title }}</h2>
     </div>

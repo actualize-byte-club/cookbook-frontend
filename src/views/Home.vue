@@ -14,15 +14,14 @@ export default {
   },
   methods: {
     indexRecipes: function () {
-      console.log("Sanity check...");
-      axios.get("http://localhost:3000/recipes").then((response) => {
+      axios.get("/recipes").then((response) => {
         console.log(response.data);
         this.recipes = response.data;
       });
     },
     createRecipe: function () {
       axios
-        .post("http://localhost:3000/recipes", this.newRecipeParams)
+        .post("/recipes", this.newRecipeParams)
         .then((response) => {
           console.log("Success!", response.data);
           this.recipes.push(response.data);
@@ -40,7 +39,7 @@ export default {
     },
     updateRecipe: function (recipe) {
       axios
-        .patch(`http://localhost:3000/recipes/${recipe.id}`, recipe)
+        .patch(`/recipes/${recipe.id}`, recipe)
         .then((response) => {
           console.log("Success!", response.data);
         })
@@ -50,13 +49,11 @@ export default {
     },
     destroyRecipe: function (recipe) {
       if (confirm("Are you sure you to delete this?")) {
-        axios
-          .delete(`http://localhost:3000/recipes/${recipe.id}`)
-          .then((response) => {
-            console.log("Success", response.data);
-            var index = this.recipes.indexOf(recipe);
-            this.recipes.splice(index, 1);
-          });
+        axios.delete(`/recipes/${recipe.id}`).then((response) => {
+          console.log("Success", response.data);
+          var index = this.recipes.indexOf(recipe);
+          this.recipes.splice(index, 1);
+        });
       }
     }
   }

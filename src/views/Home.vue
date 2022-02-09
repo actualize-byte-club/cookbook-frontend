@@ -24,10 +24,15 @@ export default {
         .then((response) => {
           console.log("Success!", response.data);
           this.recipes.push(response.data);
+          this.newRecipeParams = {};
         })
         .catch((error) => {
           console.log(error.response.data.errors);
         });
+    },
+    showRecipe: function (recipe) {
+      console.log(recipe);
+      document.querySelector("#recipe-details").showModal();
     }
   }
 };
@@ -37,27 +42,35 @@ export default {
   <div class="home">
     <h1>New Recipe</h1>
     <p>{{ newRecipeParams }}</p>
-    <div>Title: <input type="text" v-model="newRecipeParams.title" /></div>
     <div>
+      Title: <input type="text" v-model="newRecipeParams.title" />
+
       Ingredients: <input type="text" v-model="newRecipeParams.ingredients" />
-    </div>
-    <div>
+
       Directions: <input type="text" v-model="newRecipeParams.directions" />
-    </div>
-    <div>
+
       Prep Time: <input type="text" v-model="newRecipeParams.prep_time" />
-    </div>
-    <div>
+
       Image Url: <input type="text" v-model="newRecipeParams.image_url" />
+
+      <button v-on:click="createRecipe()">Create</button>
     </div>
-    <button v-on:click="createRecipe()">Create</button>
     <h1>All Recipes</h1>
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
       <h2>Title: {{ recipe.title }}</h2>
-      <img v-bind:src="recipe.image_url" alt="" />
-      <p>Ingredients: {{ recipe.ingredients }}</p>
-      <p>Directions: {{ recipe.directions }}</p>
+      <img v-bind:src="recipe.image_url" alt="" /><br />
+      <button v-on:click="showRecipe(recipe)">More Info</button>
     </div>
+    <dialog id="recipe-details">
+      <form method="dialog">
+        <h1>Recipe Info</h1>
+        <p>Title: ...</p>
+        <p>Ingredients: ...</p>
+        <p>Directions: ...</p>
+        <p>Prep Time: ...</p>
+        <p>Image Url: ...</p>
+      </form>
+    </dialog>
   </div>
 </template>
 

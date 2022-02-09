@@ -69,6 +69,7 @@ export default {
         <p>Directions: ...</p>
         <p>Prep Time: ...</p>
         <p>Image Url: ...</p>
+        <button>Close</button>
       </form>
     </dialog>
   </div>

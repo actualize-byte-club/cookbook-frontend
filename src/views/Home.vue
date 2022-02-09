@@ -47,6 +47,17 @@ export default {
         .catch((error) => {
           console.log(error.response.data.errors);
         });
+    },
+    destroyRecipe: function (recipe) {
+      if (confirm("Are you sure you to delete this?")) {
+        axios
+          .delete(`http://localhost:3000/recipes/${recipe.id}`)
+          .then((response) => {
+            console.log("Success", response.data);
+            var index = this.recipes.indexOf(recipe);
+            this.recipes.splice(index, 1);
+          });
+      }
     }
   }
 };
@@ -95,7 +106,8 @@ export default {
         <p>
           Image Url: <input type="text" v-model="editRecipeParams.image_url" />
         </p>
-        <button v-on:click="updateRecipe(editRecipeParams)">Update</button>
+        <button v-on:click="updateRecipe(currentRecipe)">Update</button>
+        <button v-on:click="destroyRecipe(currentRecipe)">Destroy</button>
         <button>Close</button>
       </form>
     </dialog>

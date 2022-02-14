@@ -31,7 +31,7 @@ export default {
 </script>
 
 <template>
-  <div class="recipes-new">
+  <div class="recipes-edit">
     <form v-on:submit.prevent="updateRecipe()">
       <h1>Edit Recipe</h1>
       <ul>

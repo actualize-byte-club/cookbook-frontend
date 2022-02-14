@@ -13,7 +13,16 @@ export default {
       this.recipe = response.data;
     });
   },
-  methods: {}
+  methods: {
+    destroyRecipe: function () {
+      if (confirm("Are you sure you to delete this?")) {
+        axios.delete(`/recipes/${this.recipe.id}`).then((response) => {
+          console.log("Success", response.data);
+          this.$router.push("/recipes");
+        });
+      }
+    }
+  }
 };
 </script>
 
@@ -25,7 +34,11 @@ export default {
     <p>Directions: {{ recipe.directions }}</p>
     <p>Prep time: {{ recipe.friendly_prep_time }}</p>
     <div>
-      <router-link v-bind:to="`/recipes/${recipe.id}/edit`">Edit</router-link>
+      <button>
+        <router-link v-bind:to="`/recipes/${recipe.id}/edit`">Edit</router-link>
+      </button>
+      |
+      <button v-on:click="destroyRecipe()">Delete</button>
     </div>
   </div>
 </template>

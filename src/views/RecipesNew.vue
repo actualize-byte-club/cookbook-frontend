@@ -5,7 +5,8 @@ export default {
   data: function () {
     return {
       newRecipeParams: {},
-      errors: []
+      errors: [],
+      sadStatus: ""
     };
   },
   methods: {
@@ -17,6 +18,7 @@ export default {
           this.$router.push("/recipes");
         })
         .catch((error) => {
+          this.sadStatus = error.response.status;
           this.errors = error.response.data.errors;
         });
     }
@@ -28,6 +30,11 @@ export default {
   <div class="recipes-new">
     <form v-on:submit.prevent="createRecipe()">
       <h1>New Recipe</h1>
+      <img
+        v-if="sadStatus"
+        v-bind:src="`https://http.cat/${sadStatus}`"
+        alt=""
+      />
       <ul>
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
       </ul>

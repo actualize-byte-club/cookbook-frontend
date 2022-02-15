@@ -7,7 +7,8 @@ dayjs.extend(relativeTime);
 export default {
   data: function () {
     return {
-      recipes: []
+      recipes: [],
+      titleFilter: ""
     };
   },
   created: function () {
@@ -20,6 +21,11 @@ export default {
   methods: {
     relativeDate: function (date) {
       return dayjs().to(dayjs(date));
+    },
+    filteredRecipes: function () {
+      return this.recipes.filter((recipe) => {
+        return recipe.title.toLowerCase().includes(this.titleFilter);
+      });
     }
   }
 };
@@ -27,7 +33,8 @@ export default {
 
 <template>
   <div class="recipes-index">
-    <div v-for="recipe in recipes" v-bind:key="recipe.id">
+    <p>Search: <input type="text" v-model="titleFilter" /></p>
+    <div v-for="recipe in filteredRecipes()" v-bind:key="recipe.id">
       <h2>{{ recipe.title }}</h2>
       <router-link v-bind:to="`/recipes/${recipe.id}`"
         ><img v-bind:src="recipe.image_url" alt=""

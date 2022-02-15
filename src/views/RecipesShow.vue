@@ -5,6 +5,7 @@ export default {
   data: function () {
     return {
       recipe: {}
+      // currentUserId: localStorage.user_id
     };
   },
   created: function () {
@@ -28,12 +29,15 @@ export default {
 
 <template>
   <div class="recipes-show">
+    <!-- <p>Recipe user id: {{ recipe.user_id }}</p>
+    <p>Current user id: {{ currentUserId }}</p> -->
+
     <h2>{{ recipe.title }}</h2>
     <img v-bind:src="recipe.image_url" alt="" />
     <p>Ingredients: {{ recipe.ingredients }}</p>
     <p>Directions: {{ recipe.directions }}</p>
     <p>Prep time: {{ recipe.friendly_prep_time }}</p>
-    <div>
+    <div v-if="recipe.owner">
       <button>
         <router-link v-bind:to="`/recipes/${recipe.id}/edit`">Edit</router-link>
       </button>

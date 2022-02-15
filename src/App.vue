@@ -9,11 +9,6 @@ export default {
     $route: function () {
       this.isLoggedIn = !!localStorage.jwt;
     }
-  },
-  methods: {
-    // isLoggedIn: function () {
-    //   return localStorage.getItem("jwt");
-    // }
   }
 };
 </script>
@@ -25,7 +20,7 @@ export default {
     <router-link v-if="!isLoggedIn" to="/login">Login</router-link> |
     <router-link v-if="isLoggedIn" to="/logout">Logout</router-link> |
     <router-link to="/recipes">Recipes</router-link> |
-    <router-link to="/recipes/new">New Recipe</router-link>
+    <router-link v-if="isLoggedIn" to="/recipes/new">New Recipe</router-link>
   </div>
   <router-view />
 </template>

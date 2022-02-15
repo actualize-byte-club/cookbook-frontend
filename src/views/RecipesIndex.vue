@@ -1,5 +1,8 @@
 <script>
 import axios from "axios";
+import dayjs from "dayjs";
+var relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 
 export default {
   data: function () {
@@ -8,12 +11,17 @@ export default {
     };
   },
   created: function () {
+    console.log(dayjs().to(dayjs("2022-01-17T17:49:11.365Z")));
     axios.get("/recipes").then((response) => {
       console.log("Recipes Index:", response.data);
       this.recipes = response.data;
     });
   },
-  methods: {}
+  methods: {
+    relativeDate: function (date) {
+      return dayjs().to(dayjs(date));
+    }
+  }
 };
 </script>
 
@@ -27,6 +35,7 @@ export default {
       <p>Ingredients: {{ recipe.ingredients }}</p>
       <p>Directions: {{ recipe.directions }}</p>
       <p>Prep time: {{ recipe.friendly_prep_time }}</p>
+      <p>Created {{ relativeDate(recipe.created_at) }}</p>
     </div>
   </div>
 </template>

@@ -17,7 +17,8 @@ export default {
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
           localStorage.setItem("user_id", response.data.user_id);
-          this.$router.push("/");
+          localStorage.setItem("flashMessage", "Successfully logged in!");
+          this.$router.push("/recipes");
         })
         .catch((error) => {
           console.log(error.response);

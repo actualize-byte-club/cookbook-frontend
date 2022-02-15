@@ -20,6 +20,7 @@ export default {
         .patch(`/recipes/${this.recipe.id}`, this.recipe)
         .then((response) => {
           console.log("Updated Recipe:", response.data);
+          localStorage.setItem("flashMessage", "Recipe successfully updated!");
           this.$router.push(`/recipes/${this.recipe.id}`);
         })
         .catch((error) => {

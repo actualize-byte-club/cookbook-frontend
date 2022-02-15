@@ -15,6 +15,7 @@ export default {
         .post("/recipes", this.newRecipeParams)
         .then((response) => {
           console.log("New Recipe:", response.data);
+          localStorage.setItem("flashMessage", "Recipe successfully created!");
           this.$router.push("/recipes");
         })
         .catch((error) => {

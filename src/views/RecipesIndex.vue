@@ -12,7 +12,6 @@ export default {
     };
   },
   created: function () {
-    console.log(dayjs().to(dayjs("2022-01-17T17:49:11.365Z")));
     axios.get("/recipes").then((response) => {
       console.log("Recipes Index:", response.data);
       this.recipes = response.data;
@@ -21,8 +20,10 @@ export default {
   methods: {
     relativeDate: function (date) {
       return dayjs().to(dayjs(date));
-    },
-    filteredRecipes: function () {
+    }
+  },
+  computed: {
+    filteredRecipes() {
       return this.recipes.filter((recipe) => {
         return recipe.title.toLowerCase().includes(this.titleFilter);
       });
@@ -34,7 +35,7 @@ export default {
 <template>
   <div class="recipes-index">
     <p>Search: <input type="text" v-model="titleFilter" /></p>
-    <div v-for="recipe in filteredRecipes()" v-bind:key="recipe.id">
+    <div v-for="recipe in filteredRecipes" v-bind:key="recipe.id">
       <h2>{{ recipe.title }}</h2>
       <router-link v-bind:to="`/recipes/${recipe.id}`"
         ><img v-bind:src="recipe.image_url" alt=""

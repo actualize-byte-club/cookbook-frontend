@@ -25,7 +25,9 @@ export default {
   computed: {
     filteredRecipes() {
       return this.recipes.filter((recipe) => {
-        return recipe.title.toLowerCase().includes(this.titleFilter);
+        return recipe.title
+          .toLowerCase()
+          .includes(this.titleFilter.toLowerCase());
       });
     }
   }
@@ -34,7 +36,14 @@ export default {
 
 <template>
   <div class="recipes-index">
-    <p>Search: <input type="text" v-model="titleFilter" /></p>
+    <p>
+      Search: <input type="text" v-model="titleFilter" list="recipeTitles" />
+    </p>
+    <datalist id="recipeTitles">
+      <option v-for="recipe in recipes" v-bind:key="recipe.id">
+        {{ recipe.title }}
+      </option>
+    </datalist>
     <div v-for="recipe in filteredRecipes" v-bind:key="recipe.id">
       <h2>{{ recipe.title }}</h2>
       <router-link v-bind:to="`/recipes/${recipe.id}`"

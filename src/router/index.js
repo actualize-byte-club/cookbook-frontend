@@ -9,6 +9,7 @@ import RecipesIndex from "../views/RecipesIndex.vue";
 import RecipesNew from "../views/RecipesNew.vue";
 import RecipesShow from "../views/RecipesShow.vue";
 import RecipesEdit from "../views/RecipesEdit.vue";
+import MapBox from "../views/Map.vue";
 
 const routes = [
   {
@@ -60,6 +61,11 @@ const routes = [
     path: "/recipes/:id/edit",
     name: "RecipesEdit",
     component: RecipesEdit
+  },
+  {
+    path: "/map",
+    name: "map",
+    component: MapBox
   }
 ];
 

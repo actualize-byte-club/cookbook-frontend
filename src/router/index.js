@@ -10,6 +10,7 @@ import RecipesNew from "../views/RecipesNew.vue";
 import RecipesShow from "../views/RecipesShow.vue";
 import RecipesEdit from "../views/RecipesEdit.vue";
 import MapBox from "../views/Map.vue";
+import GeocodeMap from "../views/GeocodeMap.vue";
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: "/map",
     name: "map",
     component: MapBox
+  },
+  {
+    path: "/geocode-map",
+    name: "GeocodeMap",
+    component: GeocodeMap
   }
 ];
 

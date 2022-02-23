@@ -11,6 +11,7 @@ import RecipesShow from "../views/RecipesShow.vue";
 import RecipesEdit from "../views/RecipesEdit.vue";
 import MapBox from "../views/Map.vue";
 import GeocodeMap from "../views/GeocodeMap.vue";
+import BootstrapRecipesIndex from "../views/BootstrapRecipesIndex.vue";
 
 const routes = [
   {
@@ -72,6 +73,11 @@ const routes = [
     path: "/geocode-map",
     name: "GeocodeMap",
     component: GeocodeMap
+  },
+  {
+    path: "/bootstrap-recipes",
+    name: "BootstrapRecipesIndex",
+    component: BootstrapRecipesIndex
   }
 ];
 

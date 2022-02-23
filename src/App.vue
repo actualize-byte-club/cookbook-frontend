@@ -17,39 +17,58 @@ export default {
 </script>
 
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link v-if="!isLoggedIn" to="/signup">Signup</router-link> |
-    <router-link v-if="!isLoggedIn" to="/login">Login</router-link> |
-    <router-link v-if="isLoggedIn" to="/logout">Logout</router-link> |
-    <router-link to="/recipes">Recipes</router-link> |
-    <router-link v-if="isLoggedIn" to="/recipes/new">New Recipe</router-link>
-  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <router-link class="navbar-brand" to="/">Cookbook</router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <router-link class="nav-link" to="/recipes">Recipes</router-link>
+          <router-link v-if="!isLoggedIn" class="nav-link" to="/signup"
+            >Signup</router-link
+          >
+          <router-link v-if="!isLoggedIn" class="nav-link" to="/login"
+            >Login</router-link
+          >
+          <router-link v-if="isLoggedIn" class="nav-link" to="/recipes/new"
+            >New Recipe</router-link
+          >
+          <router-link v-if="isLoggedIn" class="nav-link" to="/logout"
+            >Logout</router-link
+          >
+          <router-link class="nav-link" to="/bootstrap-recipes"
+            >Bootstrap Recipes</router-link
+          >
+        </div>
+      </div>
+    </div>
+  </nav>
+
   <div v-if="flashMessage">
     {{ flashMessage }} <button v-on:click="flashMessage = ''">Dismiss</button>
   </div>
-  <router-view />
+  <div class="container">
+    <router-view />
+  </div>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body {
+  background-image: url("/img/food.png");
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.card img {
+  object-fit: cover;
+  height: 250px;
 }
 </style>

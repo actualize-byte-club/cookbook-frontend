@@ -57,18 +57,6 @@ export default {
   <div v-if="flashMessage">
     {{ flashMessage }} <button v-on:click="flashMessage = ''">Dismiss</button>
   </div>
-  <div class="container">
-    <router-view />
-  </div>
+
+  <router-view />
 </template>
-
-<style>
-body {
-  background-image: url("/img/food.png");
-}
-
-.card img {
-  object-fit: cover;
-  height: 250px;
-}
-</style>

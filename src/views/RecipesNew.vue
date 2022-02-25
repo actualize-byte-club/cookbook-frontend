@@ -93,9 +93,7 @@ export default {
           <label for="floatingInput">Image Url</label>
         </div>
 
-        <button type="submit" class="btn btn-lg btn-outline-dark">
-          Submit
-        </button>
+        <button type="submit" class="btn btn-lg bg-outline-dark">Submit</button>
       </form>
     </div>
   </div>

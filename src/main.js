@@ -6,7 +6,9 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://byte-club-cookbook.herokuapp.com";
 
 var jwt = localStorage.getItem("jwt");
 if (jwt) {

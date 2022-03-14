@@ -6,13 +6,25 @@ export default {
     return {
       newRecipeParams: {},
       errors: [],
-      sadStatus: ""
+      sadStatus: "",
+      imageFile: ""
     };
   },
   methods: {
+    setFile: function (event) {
+      if (event.target.files.length > 0) {
+        this.imageFile = event.target.files[0];
+      }
+    },
     createRecipe: function () {
+      var formData = new FormData();
+      formData.append("title", this.newRecipeParams.title);
+      formData.append("ingredients", this.newRecipeParams.ingredients);
+      formData.append("directions", this.newRecipeParams.directions);
+      formData.append("prep_time", this.newRecipeParams.prep_time);
+      formData.append("image_file", this.imageFile);
       axios
-        .post("/recipes", this.newRecipeParams)
+        .post("/recipes", formData)
         .then((response) => {
           console.log("New Recipe:", response.data);
           localStorage.setItem("flashMessage", "Recipe successfully created!");
@@ -84,15 +96,15 @@ export default {
         </div>
         <div class="form-floating mb-3">
           <input
-            type="text"
+            type="file"
             class="form-control"
             id="floatingInput"
             placeholder="https://example.com"
-            v-model="newRecipeParams.image_url"
+            v-on:change="setFile($event)"
+            ref="fileInput"
           />
           <label for="floatingInput">Image Url</label>
         </div>
-
         <button type="submit" class="btn btn-lg bg-outline-dark">Submit</button>
       </form>
     </div>

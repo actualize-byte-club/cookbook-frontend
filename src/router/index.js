@@ -12,6 +12,7 @@ import RecipesEdit from "../views/RecipesEdit.vue";
 import MapBox from "../views/Map.vue";
 import GeocodeMap from "../views/GeocodeMap.vue";
 import BootstrapRecipesIndex from "../views/BootstrapRecipesIndex.vue";
+import MessagesIndex from "../views/MessagesIndex.vue";
 
 const routes = [
   {
@@ -78,6 +79,11 @@ const routes = [
     path: "/bootstrap-recipes",
     name: "BootstrapRecipesIndex",
     component: BootstrapRecipesIndex
+  },
+  {
+    path: "/messages",
+    name: "MessagesIndex",
+    component: MessagesIndex
   }
 ];
 

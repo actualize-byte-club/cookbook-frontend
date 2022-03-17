@@ -1,10 +1,12 @@
 <script>
+/* global bootstrap */
 import axios from "axios";
 
 export default {
   data: function () {
     return {
-      recipe: {}
+      recipe: {},
+      errors: []
       // currentUserId: localStorage.user_id
     };
   },
@@ -15,6 +17,22 @@ export default {
     });
   },
   methods: {
+    updateRecipe: function () {
+      axios
+        .patch(`/recipes/${this.recipe.id}`, this.recipe)
+        .then((response) => {
+          console.log("Updated Recipe:", response.data);
+          localStorage.setItem("flashMessage", "Recipe successfully updated!");
+          // // close modal
+          var editRecipeModal = bootstrap.Modal.getInstance(
+            document.getElementById("editRecipeModal")
+          ); // Returns a Bootstrap modal instance
+          editRecipeModal.hide();
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
+    },
     destroyRecipe: function () {
       if (confirm("Are you sure you to delete this?")) {
         axios.delete(`/recipes/${this.recipe.id}`).then((response) => {
@@ -75,6 +93,18 @@ export default {
               Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
               irure dolor in reprehenderit in voluptate
             </p>
+            <p>
+              <!-- Button trigger modal -->
+              <button
+                v-if="recipe.owner"
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#editRecipeModal"
+              >
+                Edit Recipe
+              </button>
+            </p>
           </div>
         </div>
       </div>
@@ -90,6 +120,57 @@ export default {
       </button>
       |
       <button v-on:click="destroyRecipe()">Delete</button>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="editRecipeModal"
+      tabindex="-1"
+      aria-labelledby="editRecipeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editRecipeModalLabel">Edit Recipe</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form v-on:submit.prevent="updateRecipe()">
+              <ul>
+                <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+              </ul>
+              <div>
+                <label>Title:</label>
+                <input type="text" v-model="recipe.title" />
+              </div>
+              <div>
+                <label>Ingredients:</label>
+                <input type="text" v-model="recipe.ingredients" />
+              </div>
+              <div>
+                <label>Directions:</label>
+                <input type="text" v-model="recipe.directions" />
+              </div>
+              <div>
+                <label>Prep Time:</label>
+                <input type="text" v-model="recipe.prep_time" />
+              </div>
+              <div>
+                <label>Image Url:</label>
+                <input type="text" v-model="recipe.image_url" />
+              </div>
+              <input class="btn btn-primary" type="submit" value="Update" />
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
